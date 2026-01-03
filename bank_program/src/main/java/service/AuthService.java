@@ -27,7 +27,7 @@ public class AuthService {
         User user = userRepository.findByUsername(username).orElseThrow(() ->
                 new ValidationException("Username or password incorrect")
         );;
-        if (!passwordHasher.verify(password, user.getPasswordHash())) {
+        if (!passwordHasher.verify(password, user.getPassword())) {
             throw new ValidationException("Username or password incorrect");
         }
         return user;
