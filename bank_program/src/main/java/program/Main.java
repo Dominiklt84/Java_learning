@@ -1,39 +1,38 @@
 package program;
 
-import data_base.DatabaseAccountRepository;
-import repository.AccountRepository;
-import repository.ConnectionRepository;
-import data_base.Database;
-import data_base.DatabaseConnectionRepository;
-import data_base.DatabaseUserRepository;
+import data_base.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import repository.UserRepository;
-import service.AuthService;
-import service.BankService;
-import service.PasswordHasher;
+import repository.*;
+import service.*;
 import ui.SceneNavigator;
+
 import java.sql.Connection;
 
 public class Main extends Application {
+
     @Override
     public void start(Stage stage) throws Exception {
-        ConnectionRepository cr = new DatabaseConnectionRepository("jdbc:sqlite:bankapp.db");
+        ConnectionRepository cp = new DatabaseConnectionRepository("jdbc:sqlite:bankapp.db");
 
-        try (Connection c = cr.getConnection()) {
+        try (Connection c = cp.getConnection()) {
             new Database(c).initialize();
         }
 
-        UserRepository userRepo = new DatabaseUserRepository(cr);
-        AccountRepository accountRepo = new DatabaseAccountRepository(cr);
+        UserRepository userRepository = new DatabaseUserRepository(cp);
+        AccountRepository accountRepo = new DatabaseAccountRepository(cp);
+        TransactionRepository txRepo = new DatabaseTransactionRepository(cp);
 
         PasswordHasher hasher = new PasswordHasher();
-        BankService bankService = new BankService(accountRepo);
-        AuthService authService = new AuthService(userRepo, hasher);
+        AuthService authService = new AuthService(userRepository, hasher);
 
-        SceneNavigator nav = new SceneNavigator(stage, authService,bankService);
+        BankService bankService = new BankService(cp, accountRepo, txRepo);
+        TransactionHistoryService historyService = new TransactionHistoryService(accountRepo, txRepo);
+        TransferService transferService = new TransferService(userRepository, accountRepo, txRepo, cp);
+
+        SceneNavigator nav = new SceneNavigator(stage, authService, bankService, transferService, historyService);
+
         nav.ShowLogin();
-
         stage.show();
     }
 

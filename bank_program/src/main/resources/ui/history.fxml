@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="374.0" prefWidth="700.0"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ui.HistoryController">
+
+    <children>
+        <TableView fx:id="txTable" layoutX="0.0" layoutY="0.0" prefHeight="374.0" prefWidth="700.0">
+            <columns>
+                <TableColumn fx:id="dateCol" text="Date"/>
+                <TableColumn fx:id="typeCol" text="Type"/>
+                <TableColumn fx:id="amountCol" text="Amount"/>
+                <TableColumn fx:id="noteCol" text="Note"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </children>
+</AnchorPane>

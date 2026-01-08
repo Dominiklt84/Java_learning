@@ -1,5 +1,4 @@
 package domain;
-import java.util.Objects;
 
 public final class Account {
     private int id;
