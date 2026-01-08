@@ -1,5 +1,7 @@
 package program;
 
+import data_base.DatabaseAccountRepository;
+import repository.AccountRepository;
 import repository.ConnectionRepository;
 import data_base.Database;
 import data_base.DatabaseConnectionRepository;
@@ -8,6 +10,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import repository.UserRepository;
 import service.AuthService;
+import service.BankService;
 import service.PasswordHasher;
 import ui.SceneNavigator;
 import java.sql.Connection;
@@ -22,9 +25,13 @@ public class Main extends Application {
         }
 
         UserRepository userRepo = new DatabaseUserRepository(cr);
-        AuthService authService = new AuthService(userRepo, new PasswordHasher());
+        AccountRepository accountRepo = new DatabaseAccountRepository(cr);
 
-        SceneNavigator nav = new SceneNavigator(stage, authService);
+        PasswordHasher hasher = new PasswordHasher();
+        BankService bankService = new BankService(accountRepo);
+        AuthService authService = new AuthService(userRepo, hasher);
+
+        SceneNavigator nav = new SceneNavigator(stage, authService,bankService);
         nav.ShowLogin();
 
         stage.show();
