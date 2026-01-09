@@ -4,6 +4,7 @@ import domain.Account;
 import domain.Transaction;
 import repository.AccountRepository;
 import repository.TransactionRepository;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -16,8 +17,14 @@ public class TransactionHistoryService {
         this.transactionRepository = Objects.requireNonNull(transactionRepository);
     }
 
+    public int getAccountIdForUser(int userId){
+        return accountRepository.findByUserId(userId)
+                .orElseThrow(()-> new IllegalStateException("Account missing"))
+                .getId();
+    }
+
     public List<Transaction> listForUser(int userId, int limit) {
-        Account acc = accountRepository.findByUserId(userId).orElseThrow(()->new IllegalStateException("Account missing"));
-    return transactionRepository.listForAccount(acc.getId(),limit,0);
+        int accountId = getAccountIdForUser(userId);
+    return transactionRepository.listForAccount(accountId,limit,0);
     }
 }

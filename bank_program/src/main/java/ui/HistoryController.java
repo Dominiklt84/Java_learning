@@ -1,4 +1,5 @@
 package ui;
+import Type.TransactionType;
 import domain.Transaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -20,11 +21,13 @@ public class HistoryController {
 
     private final ObservableList<TxRow> rows = FXCollections.observableArrayList();
     private int userId;
+    private int accountId;
     private TransactionHistoryService transactionHistoryService;
 
     public void init(int userId, TransactionHistoryService transactionHistoryService) {
         this.userId = userId;
         this.transactionHistoryService = transactionHistoryService;
+        this.accountId = transactionHistoryService.getAccountIdForUser(userId);
         txTable.setItems(rows);
 
         dateCol.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().date));
@@ -35,7 +38,7 @@ public class HistoryController {
 
     public void refresh(){
         List<Transaction> txs = transactionHistoryService.listForUser(userId,100);
-        rows.setAll(txs.stream().map(TxRow::from).toList());
+        rows.setAll(txs.stream().map(t -> TxRow.from(t, accountId)).toList());
     }
     public static final class TxRow {
         final String date;
@@ -50,12 +53,33 @@ public class HistoryController {
             this.note = note;
         }
 
-        static TxRow from(Transaction t) {
+        static TxRow from(Transaction t, int myAccountId) {
             String date = t.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             String type = t.getType().name();
-            String amount = MoneyParser.formatFromCents(t.getAmount());
             String note = t.getNote() == null ? "" : t.getNote();
+
+            int signedCents = signedAmountCents(t, myAccountId);
+            String amount = (signedCents>=0?"+":"-")+MoneyParser.formatFromCents(Math.abs(signedCents));
             return new TxRow(date, type, amount, note);
+        }
+
+        private static int signedAmountCents(Transaction t, int myAccountId) {
+            int cents = t.getAmount();
+            TransactionType type = t.getType();
+
+            return switch(type){
+                case DEPOSIT ->  cents;
+                case WITHDRAW ->  -cents;
+                case TRANSFER ->  {
+                    Integer from = t.getFromAccountId();
+                    Integer to = t.getToAccountId();
+                    if(from != null && from == myAccountId)yield -cents;
+
+                    if(to != null && to == myAccountId)yield cents;
+
+                    yield 0;
+                }
+            };
         }
     }
 
