@@ -9,9 +9,6 @@ public class BaseEntity {
     @Column(name = "id")
     private int id;
 
-    public BaseEntity() {
-    }
-
     public int getId() {
         return id;
     }

@@ -11,8 +11,8 @@ public class Account extends BaseEntity{
     private Float balance;
 
     public Account() {
-
     }
+
     public Account(BigInteger accountNumber, Float balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;

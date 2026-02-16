@@ -1,10 +1,5 @@
 package lt.viko.eif.dalencinovic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 public class Main {
     static void main() {
@@ -84,7 +79,7 @@ public class Main {
          }
          int count =(int)listend.stream().count();
          System.out.println("\nQuantity: "+count);
-         */
+
         int[] mas= new int[20];
             for(int i = 0;i<20;i++){
                 mas[i]=(int) (Math.random()*100);
@@ -92,6 +87,11 @@ public class Main {
             for(Integer k:mas){
                 System.out.println(k);
             }
+        */
+        Test obj = new Test();
+        obj.setQount(123);
+        System.out.println(obj.getQount());
+
 
     }
 }
