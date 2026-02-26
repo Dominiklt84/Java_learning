@@ -33,4 +33,12 @@ public class Account extends BaseEntity{
     public void setBalance(Float balance) {
         this.balance = balance;
     }
+
+    @Override
+    public String toString() {
+        return "\n\t\tAccount: " +
+                "\n\t\t\tid=" + getId() +
+                "\n\t\t\taccountNumber="+ accountNumber+
+                "\n\t\t\tbalance="+ balance;
+    }
 }
