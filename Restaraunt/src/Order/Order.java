@@ -1,3 +1,5 @@
+package Order;
+
 import Discount.DiscountStrategy;
 import Model.Product;
 
@@ -20,6 +22,9 @@ public class Order {
         for (Product product:products){
             total+=product.calculatePrice();
         }
-        return discountStrategy.applyDiscount(total);
+        return discountStrategy.applyDiscount(total+additionalCost());
+    }
+    protected double additionalCost(){
+        return 0;
     }
 }
