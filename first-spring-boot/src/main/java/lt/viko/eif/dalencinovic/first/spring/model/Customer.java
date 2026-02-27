@@ -1,11 +1,13 @@
 package lt.viko.eif.dalencinovic.first.spring.model;
 
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.util.List;
 
 @Entity
 @Table(name = "customer")
+@XmlRootElement
 public class Customer extends BaseEntity {
     private String firstName;
     private String lastName;
