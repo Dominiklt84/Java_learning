@@ -30,5 +30,21 @@ public class UserMenu {
 
     public void showMenu(){
         Scanner input =  new Scanner(System.in);
+        int userChoice;
+        do{
+            userChoice=displayMenu(input);
+            switch (userChoice){
+                case 1:
+                    customers=customerRepository.findAll();
+                    for(Customer customer:customers){
+                        System.out.println(customer);
+                    }
+                    break;
+                case 6:
+                    System.out.println("Thank you and goodbye!");
+                    System.exit(0);
+                    break;
+            }
+        }while (userChoice!=6);
     }
 }
