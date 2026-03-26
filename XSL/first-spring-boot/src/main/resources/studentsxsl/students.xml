@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type = "text/xsl" href ="students.xsl"?>
+<students>
+    <student>
+        <id>10001</id>
+        <first-name>Name One</first-name>
+        <last-name>Surname One</last-name>
+        <age>18</age>
+        <subjects>
+            <subject>
+                <name>OOP</name>
+                <credits>3</credits>
+            </subject>
+            <subject>
+                <name>WS</name>
+                <credits>6</credits>
+            </subject>
+        </subjects>
+    </student>
+    <student>
+        <id>10002</id>
+        <first-name>Name Two</first-name>
+        <last-name>Surname Two</last-name>
+        <age>20</age>
+    </student>
+    <student>
+        <id>10003</id>
+        <first-name>Name Three</first-name>
+        <last-name>Surname Tree</last-name>
+        <age>22</age>
+    </student>
+    <student>
+        <id>10004</id>
+        <first-name>Name Just</first-name>
+        <last-name>Surname Just</last-name>
+        <age>24</age>
+    </student>
+    <student>
+        <id>10005</id>
+        <first-name>Name Me</first-name>
+        <last-name>Surname Me</last-name>
+        <age>27</age>
+    </student>
+</students>
