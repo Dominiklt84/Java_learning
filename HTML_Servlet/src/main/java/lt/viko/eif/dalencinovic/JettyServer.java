@@ -34,7 +34,7 @@ public class JettyServer {
         servletHandler.addServletWithMapping(JettyMainServlet.class,"/main");
         servletHandler.addServletWithMapping(JettyPdfStaticServlet.class,"/pdf/static");
         servletHandler.addServletWithMapping(JettyPdfServlet.class,"/pdf");
-        
+
         server.start();
         server.join();
     }
