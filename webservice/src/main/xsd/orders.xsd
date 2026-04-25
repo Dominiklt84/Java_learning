@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://viko.lt/order-service/schema"
+           targetNamespace="http://viko.lt/order-service/schema"
            xmlns:tns="http://viko.lt/order-service/schema"
            elementFormDefault="qualified">
 
@@ -19,6 +20,21 @@
     <xs:complexType name="order">
         <xs:sequence>
             <xs:element name="orderNumber" type="xs:int"/>
+            <xs:element name="customerName" type="xs:string" minOccurs="0"/>
+            <xs:element name="totalAmount" type="xs:double"/>
+            <xs:element name="shippingCost" type="xs:float"/>
+            <xs:element name="paid" type="xs:boolean"/>
+            <xs:element name="priorityCode" type="xs:string" minOccurs="0"/>
+            <xs:element name="products" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="product">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" minOccurs="0"/>
+            <xs:element name="quantity" type="xs:int"/>
+            <xs:element name="unitPrice" type="xs:double"/>
+            <xs:element name="fragile" type="xs:boolean"/>
+            <xs:element name="categoryCode" type="xs:string" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 
