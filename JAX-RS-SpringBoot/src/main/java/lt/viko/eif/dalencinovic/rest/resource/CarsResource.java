@@ -1,9 +1,6 @@
 package lt.viko.eif.dalencinovic.rest.resource;
 
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.MatrixParam;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.*;
 
 @Path("cars")
 public class CarsResource {
