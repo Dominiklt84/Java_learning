@@ -6,8 +6,8 @@ import lt.viko.eif.dalencinovic.service.OrderService;
 
 public class Main {
     public static void main(String[] args) {
-        Product p1 = new Product("Laptop", 1000, 2);
-        Product p2 = new Product("Mouse", 50, 1);
+        Product p1 = new Product("Laptop", 1000, 2, 2);
+        Product p2 = new Product("Mouse", 50, 1, 2);
 
         Order order = new Order();
         order.addProduct(p1);
